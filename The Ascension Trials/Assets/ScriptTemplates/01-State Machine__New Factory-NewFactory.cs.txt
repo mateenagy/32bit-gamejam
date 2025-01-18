@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum STATES
+{
+    Basic,
+}
+public class PlayerTDFactory : Factory<STATES, STATE, STATEMACHINE>
+{
+    Dictionary<STATES, STATE> _States = new();
+    public override Dictionary<STATES, STATE> States => _States;
+
+    public PlayerTDFactory(STATEMACHINE sm) : base(sm)
+    {
+        States.Add(STATES.Basic, new SMSTATE(sm, this));
+    }
+}

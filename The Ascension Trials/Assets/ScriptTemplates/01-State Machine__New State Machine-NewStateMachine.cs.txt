@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class #SCRIPTNAME# : MonoBehaviour
+{
+	STATE currentState;
+	FACTORY factory;
+
+	#region GETTERS / SETTERS
+    public STATE CurrentState { get => currentState; set => currentState = value; }
+    public FACTORY Factory { get => factory; set => factory = value; }
+	#endregion
+
+	void Awake()
+	{
+		Factory = new FACTORY(this);
+		CurrentState = Factory.States[STATES.Move];
+	}
+
+	void Start()
+	{
+		CurrentState.EnterStates();
+	}
+
+	void Update()
+	{
+		CurrentState.UpdateStates();
+	}
+}

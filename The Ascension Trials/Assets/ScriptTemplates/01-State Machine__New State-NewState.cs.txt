@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class #SCRIPTNAME# : State<STATEMACHINE, FACTORY>
+{
+    public #SCRIPTNAME#(STATEMACHINE stateMachine, FACTORY factory) : base(stateMachine, factory)
+    {
+        Ctx = stateMachine;
+        Factory = factory;
+    }
+
+    protected override void SwitchState(IState<STATEMACHINE, FACTORY> newState)
+    {
+        base.SwitchState(newState);
+        if (IsRoot)
+        {
+            Ctx.CurrentState = (#SCRIPTNAME#)newState;
+        }
+        else
+        {
+            CurrentSuperState.SetSubState(newState);
+        }
+    }
+}
