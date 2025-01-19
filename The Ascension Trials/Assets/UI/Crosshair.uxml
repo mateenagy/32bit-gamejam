@@ -1,0 +1,5 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="VisualElement" style="flex-grow: 1; align-items: center; justify-content: center; align-content: auto;">
+        <engine:VisualElement style="flex-grow: 0; background-color: rgb(255, 255, 255); width: 3px; height: 3px; align-content: auto; align-self: auto; flex-shrink: 0; flex-wrap: nowrap; flex-direction: column; border-top-left-radius: 70px; border-top-right-radius: 70px; border-bottom-right-radius: 70px; border-bottom-left-radius: 70px; align-items: stretch;" />
+    </engine:VisualElement>
+</engine:UXML>
