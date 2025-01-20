@@ -43,7 +43,7 @@ MonoBehaviour:
   active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 2
   neutralHDRRangeReductionMode:
     m_OverrideState: 1
     m_Value: 2
@@ -86,13 +86,13 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 0.6
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.1
   scatter:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 0.093
   clamp:
     m_OverrideState: 1
     m_Value: 65472
@@ -133,13 +133,13 @@ MonoBehaviour:
     m_Value: 0
   gaussianStart:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 7.6
   gaussianEnd:
     m_OverrideState: 1
-    m_Value: 30
+    m_Value: 2062.68
   gaussianMaxRadius:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.9
   highQualitySampling:
     m_OverrideState: 1
     m_Value: 0
@@ -148,10 +148,10 @@ MonoBehaviour:
     m_Value: 10
   aperture:
     m_OverrideState: 1
-    m_Value: 5.6
+    m_Value: 6.6
   focalLength:
     m_OverrideState: 1
-    m_Value: 50
+    m_Value: 99.6
   bladeCount:
     m_OverrideState: 1
     m_Value: 5

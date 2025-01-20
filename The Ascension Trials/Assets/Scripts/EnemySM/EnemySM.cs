@@ -8,10 +8,12 @@ public class EnemySM : MonoBehaviour
     EnemyState currentState;
     EnemyFactory factory;
     NavMeshAgent agent;
-    public GameObject player;
+    private GameObject player;
     public GameObject bulletPrefab; // Bullet prefab
     public Transform firePoint; // Point from where the bullet will be fired
-    public float fireRate = 1f; // Fire rate in seconds
+    public float minFireRate = 0.5f; // Minimum fire rate in seconds
+    public float maxFireRate = 0.5f; // Minimum fire rate in seconds
+    public float fireRate; // Fire rate in seconds
     private float nextFireTime = 0f; // Time when the next bullet can be fired
     public int life = 20;
     public float extraRotationSpeed = 5f;
@@ -26,11 +28,13 @@ public class EnemySM : MonoBehaviour
         Factory = new EnemyFactory(this);
         CurrentState = factory.States[EnemyStates.Basic];
         agent = GetComponent<NavMeshAgent>();
+        player = FindFirstObjectByType<PlayerSM>().gameObject;
     }
 
     void Start()
     {
         CurrentState.EnterStates();
+        fireRate = Random.Range(minFireRate, maxFireRate);
     }
 
     void Update()
@@ -58,6 +62,7 @@ public class EnemySM : MonoBehaviour
         life -= damage;
         if (life <= 0)
         {
+            WaveManager.Instance.enemiesLeft--;
             Destroy(gameObject);
         }
     }

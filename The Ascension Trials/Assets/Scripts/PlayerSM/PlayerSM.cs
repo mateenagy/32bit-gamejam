@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerSM : MonoBehaviour
@@ -11,6 +12,7 @@ public class PlayerSM : MonoBehaviour
     PlayerState currentState;
     PlayerFactory factory;
     CharacterController controller;
+    public UIDocument skillUI;
     float xRotation = 0f;
     float yRotation = 0f;
     [Header("Input Actions")]
@@ -29,15 +31,27 @@ public class PlayerSM : MonoBehaviour
     bool isGrounded = false;
     public float coyoteTime = 0.2f;
     private float coyoteCounter = 0f;
-    public float dashSpeed = 10f;
-    public float dashTime = 0.5f;
     Vector3 velocity;
     [Header("Player Options")]
     public float mouseSensitivity = 2f;
     public float controllerSensitivity = 2f;
     public bool isController = false;
-    public GameObject hand;
     public int life = 100;
+
+    [Header("Hand Animation")]
+    public GameObject hand;
+    public float handMovementSpeed = 10;
+    public float handMovementElevation = 0.001f;
+
+    [Header("Dash Options")]
+    public float dashSpeed = 10f;
+    public float dashTime = 0.5f;
+    public float dashCooldown = 1f;
+    private float nextCoolDownTime = 0f;
+    public AudioSource dashSoundSource;
+    public AudioClip dashSoundClip;
+
+    VisualElement root;
 
     #region GETTERS / SETTERS
     public PlayerState CurrentState { get => currentState; set => currentState = value; }
@@ -54,12 +68,13 @@ public class PlayerSM : MonoBehaviour
         Factory = new PlayerFactory(this);
         CurrentState = factory.States[PlayerStates.Idle];
         controller = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Start()
     {
         CurrentState.EnterStates();
+        root = skillUI.rootVisualElement;
     }
 
     void Update()
@@ -85,6 +100,7 @@ public class PlayerSM : MonoBehaviour
             velocity.y = -2f;
         }
 
+
         Vector2 moveDirection = move.action.ReadValue<Vector2>();
         Vector2 cameraDirection = cameraAction.action.ReadValue<Vector2>();
 
@@ -107,20 +123,33 @@ public class PlayerSM : MonoBehaviour
             coyoteCounter = 0;
         }
         controller.Move(velocity * Time.deltaTime);
-        if (dash.action.triggered)
+
+        /* DASH */
+        if (SkillManager.Instance && SkillManager.Instance.skills.BinarySearch(Skill.Dash) >= 0)
         {
-            StartCoroutine(Dash());
+            if (dash.action.triggered && Time.time >= nextCoolDownTime)
+            {
+                var dashSkillOverlayUI = root.Q<VisualElement>("dash").Q<VisualElement>("overlay");
+                dashSkillOverlayUI.style.scale = new StyleScale(new Vector2(1, 1));
+                StartCoroutine(Dash());
+                nextCoolDownTime = Time.time + dashCooldown;
+            }
         }
         CurrentState.UpdateStates();
 
+        hand.transform.position = handMovementElevation * Mathf.Cos(Time.time * handMovementSpeed) * Vector3.up + hand.transform.position;
+
         if (life <= 0)
         {
+            SkillManager.Instance = null;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
     IEnumerator Dash()
     {
+        dashSoundSource.clip = dashSoundClip;
+        dashSoundSource.Play();
         Vector2 dashInput = move.action.ReadValue<Vector2>();
         Vector3 dashDirection = new Vector3(dashInput.x, 0, dashInput.y);
         dashDirection = transform.TransformDirection(dashDirection).normalized; // Transform to local space
@@ -129,14 +158,20 @@ public class PlayerSM : MonoBehaviour
         {
             if (dashDirection.magnitude > 0f)
             {
-                playerCamera.DOFieldOfView(160, 0.3f).SetEase(Ease.InOutSine);
-                handCamera.DOFieldOfView(148, 0.3f).SetEase(Ease.InOutSine);
+                playerCamera.DOFieldOfView(100, 0.3f).SetEase(Ease.InOutSine);
+                handCamera.DOFieldOfView(88, 0.3f).SetEase(Ease.InOutSine);
             }
             controller.Move(dashSpeed * Time.deltaTime * dashDirection);
             yield return null;
         }
         playerCamera.DOFieldOfView(82, 0.3f).SetEase(Ease.InOutSine);
         handCamera.DOFieldOfView(70, 0.3f).SetEase(Ease.InOutSine);
+        float value = 1f;
+        var dashSkillOverlayUI = root.Q<VisualElement>("dash").Q<VisualElement>("overlay");
+        DOTween.To(() => value, x => value = x, 0f, dashCooldown).OnUpdate(() =>
+        {
+            dashSkillOverlayUI.style.scale = new StyleScale(new Vector2(1, value));
+        });
     }
 
     void FixedUpdate()
