@@ -15,7 +15,7 @@ public class TestAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        NavMeshHit hit;
+        // NavMeshHit hit;
 
         // if (NavMesh.SamplePosition(player.transform.position, out hit, 1.0f, NavMesh.AllAreas))
         // {

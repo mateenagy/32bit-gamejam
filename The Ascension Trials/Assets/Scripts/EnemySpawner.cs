@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Wave
@@ -18,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
     public WavePool wavePool = new();
     public GameObject[] spawnPoints;
     public int currentWave = 0;
+    public DialogSystem dialogSystem;
     private List<GameObject> enemies = new();
 
     void Start()
@@ -31,6 +33,8 @@ public class EnemySpawner : MonoBehaviour
         if (currentWave >= wavePool.waves.Count - 1 && WaveManager.Instance.enemiesLeft <= 0)
         {
             Debug.Log("You win!");
+            dialogSystem.dialog.SetActive(true);
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else
         {

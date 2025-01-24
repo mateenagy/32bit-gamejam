@@ -29,13 +29,24 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public void AddSkill(Skill skill)
+    {
+        skills.Add(skill);
+    }
+
+    public void RemoveSkill(Skill skill)
+    {
+        skills.Remove(skill);
+    }
+
     void Start()
     {
-        root = skillUI.rootVisualElement;
     }
 
     void Update()
     {
+        skillUI = GameObject.Find("Skills").GetComponent<UIDocument>();
+        root = skillUI.rootVisualElement;
         SkillUIChecker("fire-rate-container", Skill.FireRate);
         SkillUIChecker("dash-container", Skill.Dash);
     }

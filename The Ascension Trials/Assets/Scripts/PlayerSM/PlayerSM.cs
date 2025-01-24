@@ -57,12 +57,21 @@ public class PlayerSM : MonoBehaviour
     VisualElement root;
     VisualElement healthUIRoot;
 
+    [SerializeField] bool isMoving = false;
+    Vector2 moveDirection;
+
     #region GETTERS / SETTERS
     public PlayerState CurrentState { get => currentState; set => currentState = value; }
     public Vector3 Velocity { get => velocity; set => velocity = value; }
     public float Gravity { get => gravity; }
+    public float YRotation { get => yRotation; }
+    public Vector2 MoveDirection { get => moveDirection; }
+    public float Speed { get => speed; }
+    public Transform PlayerTransform { get => transform; }
+    public CharacterController Controller { get => controller; }
     public Camera PlayerCamera { get => playerCamera; }
     public bool IsGrounded { get => isGrounded; }
+    public bool IsMoving { get => isMoving; }
     public PlayerFactory Factory { get => factory; set => factory = value; }
     #endregion
 
@@ -70,7 +79,7 @@ public class PlayerSM : MonoBehaviour
     {
         InputSystem.settings.maxEventBytesPerUpdate = 0;
         Factory = new PlayerFactory(this);
-        CurrentState = factory.States[PlayerStates.Idle];
+        CurrentState = factory.States[PlayerStates.Ground];
         controller = GetComponent<CharacterController>();
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
@@ -80,6 +89,7 @@ public class PlayerSM : MonoBehaviour
         CurrentState.EnterStates();
         root = skillUI.rootVisualElement;
         healthUIRoot = healthUI.rootVisualElement;
+        yRotation = transform.eulerAngles.y;
     }
 
     void Update()
@@ -106,7 +116,7 @@ public class PlayerSM : MonoBehaviour
         }
 
 
-        Vector2 moveDirection = move.action.ReadValue<Vector2>();
+        moveDirection = move.action.ReadValue<Vector2>();
         Vector2 cameraDirection = cameraAction.action.ReadValue<Vector2>();
 
         float mouseX = cameraDirection.x * mouseSensitivity * Time.deltaTime;
@@ -116,10 +126,18 @@ public class PlayerSM : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         yRotation += mouseX;
         playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-        Vector3 finalMove = transform.right * moveDirection.x + transform.forward * moveDirection.y;
         transform.localRotation = Quaternion.Euler(0f, yRotation, 0f);
-        controller.Move(finalMove * speed * Time.deltaTime);
+
+        /* CHECK IS MOVING */
+        if (moveDirection.x != 0 || moveDirection.y != 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+
         velocity.y += gravity * Time.deltaTime;
 
         if (jump.action.triggered && coyoteCounter > 0)
@@ -194,7 +212,6 @@ public class PlayerSM : MonoBehaviour
         life -= damage;
         VisualElement healthbar = healthUIRoot.Q<VisualElement>("healthbar_container").Q<VisualElement>("healthbar");
         Length width = new(life, LengthUnit.Percent);
-        Debug.Log($"width: {width}");
         healthbar.style.width = new StyleLength(width);
         if (life <= 0)
         {

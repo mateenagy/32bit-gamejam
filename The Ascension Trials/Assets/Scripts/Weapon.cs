@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
 {
     public UIDocument skillUI;
     private VisualElement root;
+    private Animator animator;
     [Header("Weapon options")]
     public int damage = 10;
     public float range = 100f;
@@ -46,6 +47,7 @@ public class Weapon : MonoBehaviour
     {
         root = skillUI.rootVisualElement;
         fireRateBase = fireRate;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -74,6 +76,7 @@ public class Weapon : MonoBehaviour
             }
             if (Time.time >= nextTimeToFire)
             {
+                animator.SetTrigger("IsShooting");
                 nextTimeToFire = Time.time + 1f / fireRateBase;
                 Shoot();
             }
@@ -87,7 +90,8 @@ public class Weapon : MonoBehaviour
 
     IEnumerator FireRateSkill()
     {
-        fireRateBase = fireRateWhenSkillActive;
+        // fireRateBase = fireRateWhenSkillActive;
+        damage *= 2;
         float value = 1f;
         var fireRateSkillOverlayUI = root.Q<VisualElement>("fire-rate").Q<VisualElement>("overlay");
         yield return new WaitForSeconds(rateSkillTime);
@@ -95,7 +99,8 @@ public class Weapon : MonoBehaviour
         {
             fireRateSkillOverlayUI.style.scale = new StyleScale(new Vector2(1, value));
         });
-        fireRateBase = fireRate;
+        // fireRateBase = fireRate;
+        damage /= 2;
     }
 
     void Shoot()
@@ -104,7 +109,7 @@ public class Weapon : MonoBehaviour
         shootSoundSource.clip = shootSoundClip;
         shootSoundSource.Play();
         playerSM.playerCamera.transform.DOShakePosition(duration, strength, vibrato, randomness);
-        transform.DOShakePosition(weaponDuration, weaponStrength, weaponVibrato, weaponRandomness);
+        // transform.DOShakePosition(weaponDuration, weaponStrength, weaponVibrato, weaponRandomness);
         RaycastHit[] hits = Physics.SphereCastAll(fpsCam.transform.position, hitRadius, fpsCam.transform.forward, range);
 
         foreach (RaycastHit hit in hits)

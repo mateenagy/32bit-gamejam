@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerIdle : PlayerState
+public class PlayerMove : PlayerState
 {
-    public PlayerIdle(PlayerSM stateMachine, PlayerFactory factory) : base(stateMachine, factory)
+    public PlayerMove(PlayerSM stateMachine, PlayerFactory factory) : base(stateMachine, factory)
     {
-        IsRoot = true;
+        IsRoot = false;
     }
 
     public override void Enter()
@@ -17,6 +17,8 @@ public class PlayerIdle : PlayerState
     public override void Update()
     {
         base.Update();
+        Vector3 finalMove = Ctx.PlayerTransform.right * Ctx.MoveDirection.x + Ctx.PlayerTransform.forward * Ctx.MoveDirection.y;
+        Ctx.Controller.Move(Ctx.Speed * Time.deltaTime * finalMove);
         CheckSwitchState();
     }
 
@@ -33,5 +35,9 @@ public class PlayerIdle : PlayerState
     public override void CheckSwitchState()
     {
         base.CheckSwitchState();
+        if (!Ctx.IsMoving)
+        {
+            SwitchState(Factory.States[PlayerStates.Idle]);
+        }
     }
 }
