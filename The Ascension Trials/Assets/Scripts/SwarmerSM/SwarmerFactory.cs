@@ -5,6 +5,7 @@ using UnityEngine;
 public enum SwarmerStates
 {
     Idle,
+    JumpAttack,
 }
 public class SwarmerFactory : Factory<SwarmerStates, SwarmerState, SwarmerSM>
 {
@@ -14,5 +15,6 @@ public class SwarmerFactory : Factory<SwarmerStates, SwarmerState, SwarmerSM>
     public SwarmerFactory(SwarmerSM sm) : base(sm)
     {
         States.Add(SwarmerStates.Idle, new SwarmerIdle(sm, this));
+        States.Add(SwarmerStates.JumpAttack, new SwarmerJumpAttack(sm, this));
     }
 }

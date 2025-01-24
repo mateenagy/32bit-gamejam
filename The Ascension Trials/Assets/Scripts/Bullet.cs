@@ -28,9 +28,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
-            Debug.Log("Player Hit");
             other.gameObject.GetComponent<PlayerSM>().life -= 10;
-            // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface ITest<T>
 {
     T CurrentState { get; set; }
@@ -24,6 +26,7 @@ public abstract class State<T, F>
     public virtual void FixedUpdate() { }
     public virtual void CheckSwitchState() { }
     public virtual void InitialSubState() { }
+    public virtual void OnTriggerEnter(Collider other) { }
 
     protected virtual void SwitchState(State<T, F> newState)
     {

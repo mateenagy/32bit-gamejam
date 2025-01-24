@@ -109,10 +109,11 @@ public class Weapon : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
-            EnemySM target = hit.transform.GetComponent<EnemySM>();
+            Enemy target = hit.transform.GetComponent<Enemy>();
             if (target != null)
             {
-                target.TakeDamage(damage);
+                ;
+                target.TakeDamage(damage, hit.transform.position);
             }
             if (hit.rigidbody != null)
             {

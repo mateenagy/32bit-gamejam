@@ -13,6 +13,7 @@ public class PlayerSM : MonoBehaviour
     PlayerFactory factory;
     CharacterController controller;
     public UIDocument skillUI;
+    public UIDocument healthUI;
     float xRotation = 0f;
     float yRotation = 0f;
     [Header("Input Actions")]
@@ -31,6 +32,8 @@ public class PlayerSM : MonoBehaviour
     bool isGrounded = false;
     public float coyoteTime = 0.2f;
     private float coyoteCounter = 0f;
+    public AudioSource runSoundSource;
+    public AudioClip runSoundClip;
     Vector3 velocity;
     [Header("Player Options")]
     public float mouseSensitivity = 2f;
@@ -52,6 +55,7 @@ public class PlayerSM : MonoBehaviour
     public AudioClip dashSoundClip;
 
     VisualElement root;
+    VisualElement healthUIRoot;
 
     #region GETTERS / SETTERS
     public PlayerState CurrentState { get => currentState; set => currentState = value; }
@@ -75,6 +79,7 @@ public class PlayerSM : MonoBehaviour
     {
         CurrentState.EnterStates();
         root = skillUI.rootVisualElement;
+        healthUIRoot = healthUI.rootVisualElement;
     }
 
     void Update()
@@ -122,6 +127,17 @@ public class PlayerSM : MonoBehaviour
             velocity.y = Mathf.Sqrt(3f * -2f * gravity);
             coyoteCounter = 0;
         }
+
+        if (isGrounded && (controller.velocity.x != 0 || controller.velocity.z != 0))
+        {
+            if (!runSoundSource.isPlaying)
+            {
+                dashSoundSource.pitch = Random.Range(0.8f, 1.2f);
+                dashSoundSource.clip = runSoundClip;
+                dashSoundSource.Play();
+            }
+        }
+
         controller.Move(velocity * Time.deltaTime);
 
         /* DASH */
@@ -138,12 +154,6 @@ public class PlayerSM : MonoBehaviour
         CurrentState.UpdateStates();
 
         hand.transform.position = handMovementElevation * Mathf.Cos(Time.time * handMovementSpeed) * Vector3.up + hand.transform.position;
-
-        if (life <= 0)
-        {
-            SkillManager.Instance = null;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
     }
 
     IEnumerator Dash()
@@ -179,12 +189,17 @@ public class PlayerSM : MonoBehaviour
         CurrentState.FixedUpdateStates();
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         life -= damage;
+        VisualElement healthbar = healthUIRoot.Q<VisualElement>("healthbar_container").Q<VisualElement>("healthbar");
+        Length width = new(life, LengthUnit.Percent);
+        Debug.Log($"width: {width}");
+        healthbar.style.width = new StyleLength(width);
         if (life <= 0)
         {
-            Destroy(gameObject);
+            SkillManager.Instance = null;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

@@ -6,7 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Test.unity
+    path: Assets/Scenes/Garden-of-Ender-Level-1.unity
+    guid: ebe706b36175147e38713175b3657500
+  - enabled: 1
+    path: Assets/Scenes/Celestial-Level-0.unity
     guid: ddc610441b69c420d82097f6647314f8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 36f9a395dad7c410293e128170e1ae7c, type: 2}
