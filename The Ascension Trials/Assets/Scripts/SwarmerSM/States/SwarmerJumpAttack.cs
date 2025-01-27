@@ -24,7 +24,7 @@ public class SwarmerJumpAttack : SwarmerState
 
     IEnumerator WaitAndMove()
     {
-        float waitTime = Random.Range(.5f, 1f);
+        float waitTime = Random.Range(.2f, 1.5f);
         yield return new WaitForSeconds(waitTime);
         Ctx.Agent.isStopped = false;
         SwitchState(Factory.States[SwarmerStates.Idle]);

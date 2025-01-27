@@ -599,7 +599,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 639
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 3ce51f2efc42e4b01aa9e0ae25afd1a4, type: 2}
   m_TargetDisplay: 0
@@ -1706,12 +1706,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillUI: {fileID: 1445696230915427682}
   damage: 10
-  range: 12
+  range: 15
   fireRate: 2
   fireRateBase: 2
   fireRateWhenSkillActive: 4
   impactForce: 30
-  hitRadius: 1.5
+  hitRadius: 2.5
   shootSoundSource: {fileID: 6717686780102996425}
   shootSoundClip: {fileID: 8300000, guid: c49606d731bca4fd69ef685c422edf2e, type: 3}
   fpsCam: {fileID: 5542185069800119282}
@@ -2560,7 +2560,7 @@ GameObject:
   - component: {fileID: 6206518462231825178}
   - component: {fileID: 8790025974591872270}
   - component: {fileID: 4585815461370063272}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -2720,9 +2720,6 @@ MonoBehaviour:
   coyoteTime: 0.2
   runSoundSource: {fileID: 4585815461370063272}
   runSoundClip: {fileID: 8300000, guid: 068414160a0ccf34ca0c11b55d43ffc8, type: 3}
-  mouseSensitivity: 100
-  controllerSensitivity: 150
-  isController: 0
   life: 100
   hand: {fileID: 2858892966643075716}
   handMovementSpeed: 4
@@ -3278,6 +3275,14 @@ PrefabInstance:
     - target: {fileID: 3979522974188549129, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979522974188549129, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5766845928967058639, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 639
       objectReference: {fileID: 0}
     - target: {fileID: 7065076034129608253, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
       propertyPath: m_LocalPosition.x

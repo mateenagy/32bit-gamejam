@@ -12,7 +12,6 @@ public class PlayerIdle : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log($"STATE: Idle");
     }
 
     public override void Update()

@@ -32,9 +32,10 @@ public class EnemySpawner : MonoBehaviour
     {
         if (currentWave >= wavePool.waves.Count - 1 && WaveManager.Instance.enemiesLeft <= 0)
         {
-            Debug.Log("You win!");
-            dialogSystem.dialog.SetActive(true);
-            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if (dialogSystem)
+            {
+                dialogSystem.dialog.SetActive(true);
+            }
         }
         else
         {

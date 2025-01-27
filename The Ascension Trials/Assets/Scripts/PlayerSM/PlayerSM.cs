@@ -36,9 +36,6 @@ public class PlayerSM : MonoBehaviour
     public AudioClip runSoundClip;
     Vector3 velocity;
     [Header("Player Options")]
-    public float mouseSensitivity = 2f;
-    public float controllerSensitivity = 2f;
-    public bool isController = false;
     public int life = 100;
 
     [Header("Hand Animation")]
@@ -94,11 +91,6 @@ public class PlayerSM : MonoBehaviour
 
     void Update()
     {
-        if (isController)
-        {
-            mouseSensitivity = controllerSensitivity;
-        }
-
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded)
@@ -119,8 +111,8 @@ public class PlayerSM : MonoBehaviour
         moveDirection = move.action.ReadValue<Vector2>();
         Vector2 cameraDirection = cameraAction.action.ReadValue<Vector2>();
 
-        float mouseX = cameraDirection.x * mouseSensitivity * Time.deltaTime;
-        float mouseY = cameraDirection.y * mouseSensitivity * Time.deltaTime;
+        float mouseX = cameraDirection.x * GameManager.Instance.mouseSensitivity * Time.deltaTime;
+        float mouseY = cameraDirection.y * GameManager.Instance.mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);

@@ -38,10 +38,10 @@ public class Enemy : MonoBehaviour
             {
                 if (rb)
                 {
-                    rb.AddExplosionForce(3000, hitPoint, 1);
+                    rb.AddExplosionForce(500, hitPoint, 2);
                 }
             }
-            Destroy(dismembered, 2f);
+            Destroy(dismembered, 6f);
             Destroy(gameObject);
         }
 

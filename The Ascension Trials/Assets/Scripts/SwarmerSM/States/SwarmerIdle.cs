@@ -20,10 +20,15 @@ public class SwarmerIdle : SwarmerState
         Ctx.Agent.SetDestination(Ctx.Player.transform.position);
         if (Vector3.Distance(Ctx.SwarmerTransform.position, Ctx.Player.transform.position) < Ctx.Agent.stoppingDistance)
         {
+            Ctx.SwarmerAnimator.SetBool("isMoving", false);
             Ctx.Agent.isStopped = true;
             Ctx.Agent.velocity = Vector3.zero;
             Ctx.SwarmerTransform.LookAt(new Vector3(Ctx.Player.transform.position.x, Ctx.SwarmerTransform.position.y, Ctx.Player.transform.position.z));
             SwitchState(Factory.States[SwarmerStates.JumpAttack]);
+        }
+        else
+        {
+            Ctx.SwarmerAnimator.SetBool("isMoving", true);
         }
         CheckSwitchState();
     }

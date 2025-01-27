@@ -15,6 +15,7 @@ public class SwarmerSM : MonoBehaviour
     public int damage = 5;
     public float jumpSpeed = .2f;
     public float extraRotationSpeed = 10f;
+    [SerializeField] private Animator animator;
 
 
     #region GETTERS / SETTERS
@@ -24,6 +25,7 @@ public class SwarmerSM : MonoBehaviour
     public GameObject Player { get => player; set => player = value; }
     public int Damage { get => damage; }
     public float JumpSpeed { get => jumpSpeed; }
+    public Animator SwarmerAnimator { get => animator; }
     public Transform SwarmerTransform { get => transform; }
     #endregion
 
@@ -45,6 +47,7 @@ public class SwarmerSM : MonoBehaviour
 
     void Update()
     {
+        agent.updateRotation = false;
         Vector3 lookrotation = agent.steeringTarget - transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
         CurrentState.UpdateStates();

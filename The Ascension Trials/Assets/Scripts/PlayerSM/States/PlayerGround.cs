@@ -12,7 +12,6 @@ public class PlayerGround : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log($"STATE: Ground");
         InitialSubState();
     }
 
