@@ -39,7 +39,7 @@ public class GunnersAttack : GunnersState
 
     IEnumerator Attack()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(Ctx.ShootingTime);
         SwitchState(Factory.States[GunnersStates.Patrol]);
     }
 

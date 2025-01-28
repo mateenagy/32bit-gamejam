@@ -9,6 +9,7 @@ public class ChangeLevel : MonoBehaviour
         {
             SkillManager.Instance.AddSkill(Skill.FireRate);
             SkillManager.Instance.AddSkill(Skill.Dash);
+            SkillManager.Instance.AddSkill(Skill.Heal);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }

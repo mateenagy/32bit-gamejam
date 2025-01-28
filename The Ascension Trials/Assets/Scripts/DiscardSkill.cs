@@ -13,20 +13,28 @@ public class DiscardSkill : MonoBehaviour
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         ui = GetComponent<UIDocument>();
         root = ui.rootVisualElement;
-        VisualElement dashButton = root.Q<VisualElement>("dash-container");
-        VisualElement fireRateButton = root.Q<VisualElement>("fire-rate-container");
-        dashButton.RegisterCallback<ClickEvent>(ev =>
+        SkillUIChecker("dash-container", Skill.Dash);
+        SkillUIChecker("fire-rate-container", Skill.FireRate);
+        SkillUIChecker("heal-container", Skill.Heal);
+    }
+
+    void SkillUIChecker(string _container, Skill skill)
+    {
+        var container = root.Q<VisualElement>(_container);
+        if (SkillManager.Instance.skills.BinarySearch(skill) >= 0)
         {
-            SkillManager.Instance.RemoveSkill(Skill.Dash);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            Time.timeScale = 1;
-        });
-        fireRateButton.RegisterCallback<ClickEvent>(ev =>
+            container.style.display = DisplayStyle.Flex;
+            container.RegisterCallback<ClickEvent>(ev =>
+            {
+                SkillManager.Instance.RemoveSkill(skill);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                Time.timeScale = 1;
+            });
+        }
+        else
         {
-            SkillManager.Instance.RemoveSkill(Skill.FireRate);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            Time.timeScale = 1;
-        });
+            container.style.display = DisplayStyle.None;
+        }
     }
 
     void Update()

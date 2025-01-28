@@ -1706,12 +1706,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillUI: {fileID: 1445696230915427682}
   damage: 10
-  range: 15
+  range: 19
   fireRate: 2
   fireRateBase: 2
   fireRateWhenSkillActive: 4
   impactForce: 30
-  hitRadius: 2.5
+  hitRadius: 3
   shootSoundSource: {fileID: 6717686780102996425}
   shootSoundClip: {fileID: 8300000, guid: c49606d731bca4fd69ef685c422edf2e, type: 3}
   fpsCam: {fileID: 5542185069800119282}
@@ -2070,6 +2070,7 @@ GameObject:
   m_Component:
   - component: {fileID: 247141422318926500}
   - component: {fileID: 1445696230915427682}
+  - component: {fileID: 3064360623667545058}
   m_Layer: 5
   m_Name: Skills
   m_TagString: Untagged
@@ -2107,7 +2108,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: f1084687721024de9908a0621e3504f7, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: ca57959a56daa4bea9bde05526e985be, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
@@ -2708,6 +2709,7 @@ MonoBehaviour:
   cameraAction: {fileID: 2093150142595052205, guid: ae2b40189201743d3a543f8777f08b14, type: 3}
   jump: {fileID: -8487996032397928473, guid: ae2b40189201743d3a543f8777f08b14, type: 3}
   dash: {fileID: 6435405091052549427, guid: ae2b40189201743d3a543f8777f08b14, type: 3}
+  heal: {fileID: -9130075964376265030, guid: ae2b40189201743d3a543f8777f08b14, type: 3}
   playerCamera: {fileID: 5542185069800119282}
   handCamera: {fileID: 1352422044466563505}
   speed: 13
@@ -2729,7 +2731,8 @@ MonoBehaviour:
   dashCooldown: 2
   dashSoundSource: {fileID: 4585815461370063272}
   dashSoundClip: {fileID: 8300000, guid: 5b5189cf0b4ae47029a11978a524a8ac, type: 3}
-  isMoving: 0
+  healAmount: 10
+  healCooldown: 10
 --- !u!143 &6206518462231825178
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2951,6 +2954,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6847609804616903116, guid: fdae7f1831d144d30818604ba7933fa4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8804055561568826348, guid: fdae7f1831d144d30818604ba7933fa4, type: 3}
       propertyPath: m_Name
       value: -- UI --
@@ -2961,8 +2968,23 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1412721237436535374, guid: fdae7f1831d144d30818604ba7933fa4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9006952742826720650}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7536064561316610808, guid: fdae7f1831d144d30818604ba7933fa4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3064360623667545058}
   m_SourcePrefab: {fileID: 100100000, guid: fdae7f1831d144d30818604ba7933fa4, type: 3}
+--- !u!114 &3064360623667545058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6621472992523498428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac0e9756e03745a389c3e686617869b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &751184761484970096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3272,6 +3294,14 @@ PrefabInstance:
       propertyPath: skillUI
       value: 
       objectReference: {fileID: 1445696230915427682}
+    - target: {fileID: 101595127982149710, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
+      propertyPath: healAmount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 101595127982149710, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
+      propertyPath: healCooldown
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3979522974188549129, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3322,6 +3352,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7065076034129608253, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308227387933041501, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
+      propertyPath: m_StopNaN
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308227387933041501, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
+      propertyPath: m_Dithering
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308227387933041501, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
+      propertyPath: m_CameraType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308227387933041501, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
+      propertyPath: m_RenderShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308227387933041501, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089130640696927648, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}
+      propertyPath: m_Depth
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9158093849364774195, guid: d6f2469f02c84461482e220aa091b8ec, type: 3}

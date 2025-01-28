@@ -14,6 +14,7 @@ public class GunnersSM : MonoBehaviour
     [Header("Shooting Settings")]
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float shootForce = 10f;
+    [SerializeField] float shootingTime = 5f;
     [SerializeField] float spread = 1f;
     [SerializeField] float timeToNextShoot = 0.5f;
     [SerializeField] float extraRotationSpeed = 10f;
@@ -30,6 +31,7 @@ public class GunnersSM : MonoBehaviour
     public float Spread { get => spread; }
     public NavMeshAgent Agent { get => agent; }
     public float Radius { get => radius; }
+    public float ShootingTime { get => shootingTime; }
     public float TimeToNextShoot { get => timeToNextShoot; }
     #endregion
 

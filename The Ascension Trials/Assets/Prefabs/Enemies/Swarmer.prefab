@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b215c8c081b64346b759636c6b2672d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
-  bloodParticle: {fileID: 7383336024440780279, guid: 2c5b3894adfb048e98b53b6bf651b9a7, type: 3}
+  health: 30
+  bloodParticle: {fileID: 7383336024440780279, guid: bf466c6205f1847cf87a016876aa711c, type: 3}
   dismemberedSwarmer: {fileID: 7035460542121762940, guid: b2e6675cbbd2642b6bfed26f5dc2ab5c, type: 3}
   hitSoundClip: {fileID: 8300000, guid: f31b58beef4f74ca7981c2b928f17c85, type: 3}
 --- !u!82 &6814085614194562565

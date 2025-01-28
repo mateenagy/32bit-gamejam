@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class Wave
@@ -21,20 +23,25 @@ public class EnemySpawner : MonoBehaviour
     public int currentWave = 0;
     public DialogSystem dialogSystem;
     private List<GameObject> enemies = new();
+    private bool started = false;
 
     void Start()
     {
-        SpawnEnemy();
+        StartCoroutine(EnemySpawnTimeout(2f));
     }
 
 
     void Update()
     {
+        if (!started) return;
+
         if (currentWave >= wavePool.waves.Count - 1 && WaveManager.Instance.enemiesLeft <= 0)
         {
             if (dialogSystem)
             {
-                dialogSystem.dialog.SetActive(true);
+                StartCoroutine(ShowEndUI());
+                // var root = dialogSystem.ui.rootVisualElement;
+                // VisualElement endUI = root.Q<VisualElement>("end-ui-container");
             }
         }
         else
@@ -48,10 +55,17 @@ public class EnemySpawner : MonoBehaviour
                 if (currentWave < wavePool.waves.Count - 1)
                 {
                     currentWave++;
-                    SpawnEnemy();
+                    StartCoroutine(EnemySpawnTimeout(2f));
                 }
             }
         }
+    }
+
+    IEnumerator ShowEndUI()
+    {
+        Time.timeScale = 0.2f;
+        yield return new WaitForSeconds(2f * 0.2f);
+        dialogSystem.dialog.SetActive(true);
     }
 
     void SpawnEnemy()
@@ -64,5 +78,13 @@ public class EnemySpawner : MonoBehaviour
             GameObject spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
             enemies.Add(Instantiate(enemy, spawnPoint.transform.position, spawnPoint.transform.rotation));
         }
+    }
+
+    IEnumerator EnemySpawnTimeout(float time)
+    {
+        started = false;
+        yield return new WaitForSeconds(time);
+        started = true;
+        SpawnEnemy();
     }
 }

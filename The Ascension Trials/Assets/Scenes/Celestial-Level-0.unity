@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 10
+  isDialogue: 0
 --- !u!4 &739317855
 Transform:
   m_ObjectHideFlags: 0
@@ -1243,79 +1244,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1 &1050610981
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1050610983}
-  - component: {fileID: 1050610982}
-  - component: {fileID: 1050610984}
-  m_Layer: 5
-  m_Name: -- DialogUI --
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1050610982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050610981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: f1084687721024de9908a0621e3504f7, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 1f9011ba9c99248358488ae6c6c40c86, type: 3}
-  m_SortingOrder: 1
-  m_WorldSpaceSizeMode: 1
-  m_WorldSpaceWidth: 1920
-  m_WorldSpaceHeight: 1080
---- !u!4 &1050610983
+--- !u!4 &1050610983 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4061918697091821220, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+  m_PrefabInstance: {fileID: 423073659523922023}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050610981}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 556792116}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1050610984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050610981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0d148396d6984684a6a337aac077168, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lines:
-  - Welcome to the world of Ascendria. You have been choosen to be one of us but
-    first you need to prove your worth by complete our trials.
-  - We give you a weapon and some of our power to help you stay alive.
-  dialog: {fileID: 1050610981}
-  ui: {fileID: 1050610982}
-  showOnStart: 1
-  stepSound: {fileID: 0}
-  isTextDialog: 1
 --- !u!1 &1166044548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,6 +1478,7 @@ MonoBehaviour:
   lines:
   - You can double jump if you shoot under yourself after jumping.
   dialog: {fileID: 1596279298}
+  nextDialogKey: {fileID: -8487996032397928473, guid: ae2b40189201743d3a543f8777f08b14, type: 3}
   ui: {fileID: 1596279301}
   showOnStart: 0
   stepSound: {fileID: 0}
@@ -1666,6 +1600,149 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b834673d1620647bfbed54d3cf91409b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &24777380078984875
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4276763250885077890, guid: da105033e9b58487085059aee97d408c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276763250885077890, guid: da105033e9b58487085059aee97d408c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -189.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276763250885077890, guid: da105033e9b58487085059aee97d408c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276763250885077890, guid: da105033e9b58487085059aee97d408c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276763250885077890, guid: da105033e9b58487085059aee97d408c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276763250885077890, guid: da105033e9b58487085059aee97d408c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276763250885077890, guid: da105033e9b58487085059aee97d408c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276763250885077890, guid: da105033e9b58487085059aee97d408c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276763250885077890, guid: da105033e9b58487085059aee97d408c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276763250885077890, guid: da105033e9b58487085059aee97d408c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242225693876900657, guid: da105033e9b58487085059aee97d408c, type: 3}
+      propertyPath: m_Name
+      value: -- Death Plane --
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: da105033e9b58487085059aee97d408c, type: 3}
+--- !u!1001 &423073659523922023
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 556792116}
+    m_Modifications:
+    - target: {fileID: 900612765050627943, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: m_Name
+      value: -- DialogUI --
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061918697091821220, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061918697091821220, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061918697091821220, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061918697091821220, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061918697091821220, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061918697091821220, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061918697091821220, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061918697091821220, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061918697091821220, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061918697091821220, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9088473860124747388, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: lines.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9088473860124747388, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: 'lines.Array.data[0]'
+      value: You stand within the realm of Ascendria, a place beyond mortal comprehension.
+        We, the Celestials, are the architects of balance, the arbiters of power,
+        and the keepers of truths hidden from your fragile world.
+      objectReference: {fileID: 0}
+    - target: {fileID: 9088473860124747388, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: 'lines.Array.data[1]'
+      value: Eons ago, this realm was forged to test the worthiness of champions.
+        Those who seek our favor, those who crave power, must prove their resolve.
+        Each trial here is a reflection of your will, your strength, and your capacity
+        to endure loss.
+      objectReference: {fileID: 0}
+    - target: {fileID: 9088473860124747388, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: 'lines.Array.data[2]'
+      value: "You are here because you dared to ascend, mortal. Perhaps you seek
+        redemption. Perhaps you seek vengeance. Or perhaps\u2026 you seek purpose.
+        It matters not. What lies ahead is the truth of who you are, stripped of
+        all pretense and all crutches."
+      objectReference: {fileID: 0}
+    - target: {fileID: 9088473860124747388, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
+      propertyPath: 'lines.Array.data[3]'
+      value: "Step forward, challenger, and begin. The path will not be kind\u2026
+        but neither shall we."
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6dcc98001041b465788717a1a06be7a1, type: 3}
 --- !u!1001 &2158190027235470946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1872,3 +1949,4 @@ SceneRoots:
   - {fileID: 654305129}
   - {fileID: 1679746326}
   - {fileID: 739317855}
+  - {fileID: 24777380078984875}

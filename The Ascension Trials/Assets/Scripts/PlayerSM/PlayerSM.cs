@@ -21,6 +21,7 @@ public class PlayerSM : MonoBehaviour
     public InputActionReference cameraAction;
     public InputActionReference jump;
     public InputActionReference dash;
+    public InputActionReference heal;
     public Camera playerCamera;
     public Camera handCamera;
     [Header("Player Movement")]
@@ -43,18 +44,23 @@ public class PlayerSM : MonoBehaviour
     public float handMovementSpeed = 10;
     public float handMovementElevation = 0.001f;
 
-    [Header("Dash Options")]
+    [Header("Skills Options")]
+    [Header("Dash")]
     public float dashSpeed = 10f;
     public float dashTime = 0.5f;
     public float dashCooldown = 1f;
     private float nextCoolDownTime = 0f;
     public AudioSource dashSoundSource;
     public AudioClip dashSoundClip;
+    [Header("Heal")]
+    public int healAmount = 40;
+    public float healCooldown = 1f;
+    private float nextHealCoolDownTime = 0f;
 
     VisualElement root;
     VisualElement healthUIRoot;
 
-    [SerializeField] bool isMoving = false;
+    bool isMoving = false;
     Vector2 moveDirection;
 
     #region GETTERS / SETTERS
@@ -91,6 +97,10 @@ public class PlayerSM : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.isDialogue)
+        {
+            return;
+        }
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded)
@@ -161,9 +171,26 @@ public class PlayerSM : MonoBehaviour
                 nextCoolDownTime = Time.time + dashCooldown;
             }
         }
-        CurrentState.UpdateStates();
 
-        hand.transform.position = handMovementElevation * Mathf.Cos(Time.time * handMovementSpeed) * Vector3.up + hand.transform.position;
+        /* HEAL */
+        if (SkillManager.Instance && SkillManager.Instance.skills.BinarySearch(Skill.Heal) >= 0)
+        {
+            if (heal.action.triggered && Time.time >= nextHealCoolDownTime)
+            {
+                var healSkillOverlayUI = root.Q<VisualElement>("heal").Q<VisualElement>("overlay");
+                healSkillOverlayUI.style.scale = new StyleScale(new Vector2(1, 1));
+                life += healAmount;
+                life = Mathf.Clamp(life, 0, 100);
+                UpdateHelathBar();
+                float value = 1f;
+                nextHealCoolDownTime = Time.time + healCooldown;
+                DOTween.To(() => value, x => value = x, 0f, healCooldown).OnUpdate(() =>
+                {
+                    healSkillOverlayUI.style.scale = new StyleScale(new Vector2(1, value));
+                });
+            }
+        }
+        CurrentState.UpdateStates();
     }
 
     IEnumerator Dash()
@@ -199,12 +226,17 @@ public class PlayerSM : MonoBehaviour
         CurrentState.FixedUpdateStates();
     }
 
-    public void TakeDamage(int damage)
+    void UpdateHelathBar()
     {
-        life -= damage;
         VisualElement healthbar = healthUIRoot.Q<VisualElement>("healthbar_container").Q<VisualElement>("healthbar");
         Length width = new(life, LengthUnit.Percent);
         healthbar.style.width = new StyleLength(width);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        life -= damage;
+        UpdateHelathBar();
         if (life <= 0)
         {
             SkillManager.Instance = null;

@@ -5,7 +5,8 @@ using UnityEngine.UIElements;
 public enum Skill
 {
     FireRate,
-    Dash
+    Dash,
+    Heal,
 }
 
 public class SkillManager : MonoBehaviour
@@ -49,6 +50,7 @@ public class SkillManager : MonoBehaviour
         root = skillUI.rootVisualElement;
         SkillUIChecker("fire-rate-container", Skill.FireRate);
         SkillUIChecker("dash-container", Skill.Dash);
+        SkillUIChecker("heal-container", Skill.Heal);
     }
 
     void SkillUIChecker(string _container, Skill skill)
